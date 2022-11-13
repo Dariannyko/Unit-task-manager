@@ -1,0 +1,146 @@
+.section-tasks {
+  padding: 80px 0 40px;
+  border-bottom: 1px solid #e1e1e1;
+
+  /*Tablet*/
+  @media (max-width: 1199px) {
+    padding: 50px 0 20px;
+  }
+
+  /*Mobile*/
+  @media (max-width: 899px) {
+    padding: 50px 0 10px;
+  }
+
+  /*Mobile XS*/
+  @media (max-width: 599px) {
+    padding: 40px 0;
+  }
+}
+
+.section-tasks__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 114px 0 100px;
+
+  /*Tablet*/
+  @media (max-width: 1199px) {
+    padding: 0 0 0 75px;
+  }
+
+  /*Mobile*/
+  @media (max-width: 899px) {
+    padding: 0;
+    flex-direction: row-reverse;
+    align-items: unset;
+  }
+
+  /*Mobile XS*/
+  @media (max-width: 599px) {
+    flex-direction: column-reverse;
+  }
+}
+
+.section-tasks__row > * {
+  flex-shrink: 0;
+}
+
+.section-tasks__content {
+  width: 570px;
+
+  /*Tablet*/
+  @media (max-width: 1199px) {
+    width: 495px;
+    padding: 0 0 10px;
+  }
+
+  /*Mobile*/
+  @media (max-width: 899px) {
+    width: 270px;
+    padding: 6px 0 0;
+  }
+
+  /*Mobile XS*/
+  @media (max-width: 599px) {
+    width: unset;
+    padding: 0;
+    text-align: center;
+  }
+}
+
+.section-tasks__header {
+  margin: 0 0 30px;
+
+  /*Tablet*/
+  @media (max-width: 1199px) {
+    margin: 0 0 20px;
+  }
+}
+
+.section-tasks__title {
+  margin: 0 0 30px;
+
+  /*Tablet*/
+  @media (max-width: 1199px) {
+    margin: 0 0 20px;
+  }
+
+  /*Mobile XS*/
+  @media (max-width: 599px) {
+    margin: 0 0 10px;
+  }
+}
+
+.section-tasks__text {
+  width: 400px;
+
+  /*Tablet*/
+  @media (max-width: 1199px) {
+    width: unset;
+    max-width: 420px;
+  }
+
+}
+
+.section-tasks__text p {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 2.2;
+  color: $paragraphColor;
+
+  &:not(:last-child) {
+    margin: 0 0 15px;
+  }
+
+  /*Mobile*/
+  @media (max-width: 899px) {
+    line-height: 1.7;
+  }
+}
+
+.section-tasks__img {
+  /*Tablet*/
+  @media (max-width: 1199px) {
+    width: 265px;
+  }
+
+  /*Mobile*/
+  @media (max-width: 899px) {
+    @media (max-width: 1199px) {
+      width: 270px;
+    }
+  }
+
+  /*Mobile XS*/
+  @media (max-width: 599px) {
+    margin: 0 0 10px;
+    width: 100%;
+    text-align: center;
+
+    img {
+      width: 270px;
+      margin: 0 auto;
+    }
+  }
+}

@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <!-- encoding -->
+    <meta charset="UTF-8" />
+    <!-- Mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title and SEO -->
+    <title>Юнит - таск-менеджер</title>
+    <meta
+      name="description"
+      content="Таск-менеджер Юнит для управления задачами и проектами из любой точки мира"
+    />
+    <meta
+      name="keywords"
+      content="таск-менеджер, управление проектами, управление задчами, планирование, органайзер"
+    />
+
+    <link
+      rel="preload"
+      href="./fonts/Montserrat/Montserrat-Bold.woff2"
+      as="font"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="./fonts/Montserrat/Montserrat-ExtraBold.woff2"
+      as="font"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="./fonts/Montserrat/Montserrat-Medium.woff2"
+      as="font"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.35);
+      }
+      *,
+      *::before,
+      *::after {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      html {
+        height: 100%;
+        scroll-behavior: smooth;
+      }
+      body {
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin: 0;
+        font-family: "Montserrat", sans-serif;
+        color: #2e2e2e;
+      }
+      body > * {
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+      }
+      input,
+      textarea,
+      button {
+        font-family: inherit;
+        padding: 0;
+      }
+      label {
+        cursor: pointer;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p {
+        margin: 0;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+      fieldset {
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
+      legend {
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
+      .container {
+        width: 1200px;
+        margin: 0 auto;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      .none {
+        display: none !important;
+      }
+      .footer {
+        margin-top: auto;
+      }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        left: -3000px;
+      }
+      .header {
+        position: relative;
+        z-index: 15;
+        background-image: url("./img/background/header-bg.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+      @media (max-width: 1600px) {
+        .header {
+          background-image: url("./img/background/header-bg-1600.jpg");
+          background-size: cover;
+          background-position: center;
+        }
+      }
+      @media (max-width: 1199px) {
+        .header {
+          background-image: url("./img/background/header-bg-900.jpg");
+          background-size: cover;
+          background-position: center;
+        }
+      }
+      @media (max-width: 899px) {
+        .header {
+          background-image: url("./img/background/header-bg-600.jpg");
+          background-size: cover;
+          background-position: center;
+        }
+      }
+      @media (max-width: 599px) {
+        .header {
+          background-image: url("./img/background/header-bg-320.jpg");
+          background-size: cover;
+          background-position: center;
+        }
+      }
+      .header__wrapper {
+        position: relative;
+        z-index: 2;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 60px 0 100px;
+        color: #fff;
+      }
+      @media (max-width: 1199px) {
+        .header__wrapper {
+          padding: 60px 0 50px;
+        }
+      }
+      @media (max-width: 899px) {
+        .header__wrapper {
+          padding: 20px 0 50px;
+        }
+      }
+      @media (max-width: 599px) {
+        .header__wrapper {
+          padding: 20px 0 40px;
+        }
+      }
+      .header__buttons {
+        margin: 0 0 140px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        width: 1200px;
+        padding: 0 15px;
+      }
+      @media (max-width: 1199px) {
+        .header__buttons {
+          margin: 0 0 100px;
+          width: 100%;
+        }
+      }
+      @media (max-width: 899px) {
+        .header__buttons {
+          margin: 0 0 30px;
+        }
+      }
+      .header__buttons-nav-icon {
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+      }
+      .header__content {
+        margin: 0 0 148px;
+        text-align: center;
+      }
+      @media (max-width: 1199px) {
+        .header__content {
+          margin: 0 0 129px;
+        }
+      }
+      @media (max-width: 899px) {
+        .header__content {
+          margin: 0 0 80px;
+        }
+      }
+      @media (max-width: 599px) {
+        .header__content {
+          margin: 0 0 50px;
+        }
+      }
+      .header__title {
+        margin: 0 0 40px;
+      }
+      @media (max-width: 1199px) {
+        .header__title {
+          margin: 0 0 35px;
+        }
+      }
+      @media (max-width: 899px) {
+        .header__title {
+          margin: 0 0 30px;
+        }
+      }
+      .title__h1 {
+        font-weight: 700;
+        line-height: 1;
+        font-size: 96px;
+        text-transform: uppercase;
+      }
+      @media (max-width: 1199px) {
+        .title__h1 {
+          font-size: 84px;
+        }
+      }
+      @media (max-width: 899px) {
+        .title__h1 {
+          font-size: 70px;
+        }
+      }
+      .header__description {
+        max-width: 730px;
+        margin: 0 auto 70px;
+        font-weight: 700;
+        font-size: 20px;
+      }
+      .header__description p:not(:last-child) {
+        margin: 0 0 15px;
+      }
+      @media (max-width: 1199px) {
+        .header__description {
+          margin: 0 auto 50px;
+          font-size: 18px;
+        }
+      }
+      @media (max-width: 899px) {
+        .header__description {
+          font-size: 16px;
+          max-width: 430px;
+        }
+      }
+      @media (max-width: 599px) {
+        .header__description {
+          margin: 0 auto 32px;
+        }
+      }
+      .header__form {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        margin: 0 auto;
+        -webkit-column-gap: 20px;
+        column-gap: 20px;
+      }
+      @media (max-width: 899px) {
+        .header__form {
+          width: 370px;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          -webkit-box-align: stretch;
+          -ms-flex-align: stretch;
+          align-items: stretch;
+          row-gap: 21px;
+        }
+      }
+      @media (max-width: 599px) {
+        .header__form {
+          width: 100%;
+        }
+      }
+      .header__button-search {
+        margin-left: auto;
+      }
+      .section-functional {
+        padding: 80px 0;
+      }
+      @media (max-width: 1199px) {
+        .section-functional {
+          padding: 50px 0;
+        }
+      }
+      @media (max-width: 599px) {
+        .section-functional {
+          padding: 40px 0;
+        }
+      }
+      .section-functional__header {
+        margin: 0 0 70px;
+        text-align: center;
+      }
+      @media (max-width: 1199px) {
+        .section-functional__header {
+          margin: 0 0 60px;
+        }
+      }
+      @media (max-width: 899px) {
+        .section-functional__header {
+          margin: 0 0 40px;
+        }
+      }
+      .section-functional__title {
+        margin: 0 0 40px;
+      }
+      @media (max-width: 1199px) {
+        .section-functional__title {
+          margin: 0 0 30px;
+        }
+      }
+      @media (max-width: 899px) {
+        .section-functional__title {
+          margin: 0 0 20px;
+        }
+      }
+      @media (max-width: 599px) {
+        .section-functional__title {
+          margin: 0 0 10px;
+        }
+      }
+      .section-functional__row {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-column-gap: 30px;
+        column-gap: 30px;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+      @media (max-width: 899px) {
+        .section-functional__row {
+          margin: -30px 0 0;
+        }
+      }
+      @media (max-width: 599px) {
+        .section-functional__row {
+          margin: -40px 0 0;
+        }
+      }
+      .section-functional__row > * {
+        width: 270px;
+      }
+      @media (max-width: 1199px) {
+        .section-functional__row > * {
+          width: 195px;
+        }
+      }
+      @media (max-width: 899px) {
+        .section-functional__row > * {
+          width: 270px;
+          margin: 30px 0 0;
+        }
+      }
+      @media (max-width: 599px) {
+        .section-functional__row > * {
+          width: 290px;
+          margin: 40px 0 0;
+        }
+      }
+      .nav-icon {
+        width: 60px;
+        height: 60px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: #fff;
+        border: none;
+        border-radius: 50%;
+        -webkit-transition: background-color 0.2s ease-in;
+        transition: background-color 0.2s ease-in;
+      }
+      .nav-icon__middle {
+        position: relative;
+        width: 20px;
+        height: 3px;
+        background-color: #000;
+        border-radius: 2px;
+        -webkit-transition: background-color 0.2s ease-in;
+        transition: background-color 0.2s ease-in;
+      }
+      .nav-icon__middle::before,
+      .nav-icon__middle::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 20px;
+        height: 3px;
+        background-color: #000;
+        border-radius: 2px;
+        -webkit-transition: top 0.2s linear 0.2s, -webkit-transform ease-in 0.2s;
+        transition: top 0.2s linear 0.2s, -webkit-transform ease-in 0.2s;
+        transition: transform ease-in 0.2s, top 0.2s linear 0.2s;
+        transition: transform ease-in 0.2s, top 0.2s linear 0.2s,
+          -webkit-transform ease-in 0.2s;
+        -webkit-transition: background-color 0.2s ease-in;
+        transition: background-color 0.2s ease-in;
+      }
+      .nav-icon__middle::before {
+        top: -7px;
+      }
+      .nav-icon__middle::after {
+        top: 7px;
+      }
+      .nav-icon.nav-icon--active .nav-icon__middle {
+        background-color: transparent;
+      }
+      .nav-icon.nav-icon--active .nav-icon__middle::before,
+      .nav-icon.nav-icon--active .nav-icon__middle::after {
+        top: 0;
+        -webkit-transition: top 0.2s linear, -webkit-transform 0.2s ease-in 0.2s;
+        transition: top 0.2s linear, -webkit-transform 0.2s ease-in 0.2s;
+        transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
+        transition: top 0.2s linear, transform 0.2s ease-in 0.2s,
+          -webkit-transform 0.2s ease-in 0.2s;
+      }
+      .nav-icon.nav-icon--active .nav-icon__middle::before {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+      .nav-icon.nav-icon--active .nav-icon__middle::after {
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+      }
+      .nav-icon.nav-icon--active {
+        position: fixed;
+        z-index: 999;
+      }
+      .nav-icon:hover {
+        background-color: #00c470;
+      }
+      .nav-icon:hover .nav-icon__middle {
+        background-color: #fff;
+      }
+      .nav-icon:hover .nav-icon__middle::before,
+      .nav-icon:hover .nav-icon__middle::after {
+        background-color: #fff;
+      }
+      .nav-icon:hover.nav-icon--active .nav-icon__middle {
+        background-color: transparent;
+      }
+      .nav {
+        position: fixed;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        opacity: 0;
+        text-align: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        color: #ffffff;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-transition: opacity 0.2s ease-in, top 0s linear 0.2s;
+        transition: opacity 0.2s ease-in, top 0s linear 0.2s;
+      }
+      .nav.nav--active {
+        top: 0;
+        opacity: 1;
+        -webkit-transition: top 0s linear, opacity 0.2s ease-in;
+        transition: top 0s linear, opacity 0.2s ease-in;
+        z-index: 99;
+      }
+      .nav__top {
+        margin: 0 0 50px;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 1;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #15d784;
+      }
+      @media (max-width: 599px) {
+        .nav__top {
+          margin: 0 0 30px;
+          font-size: 16px;
+        }
+      }
+      .nav__list {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 1;
+      }
+      .nav__list a {
+        text-decoration: none;
+        color: #fff;
+        -webkit-transition: color 0.2s ease-in;
+        transition: color 0.2s ease-in;
+      }
+      .nav__list a:hover {
+        color: #15d784;
+      }
+      .nav__list li:not(:last-child) {
+        margin: 0 0 40px;
+      }
+      @media (max-width: 599px) {
+        .nav__list li:not(:last-child) {
+          margin: 0 0 30px;
+        }
+      }
+      @media (max-width: 599px) {
+        .nav__list {
+          font-size: 17px;
+        }
+      }
+      .search {
+        position: relative;
+        z-index: 9;
+      }
+      .search__input {
+        width: 0;
+        height: 60px;
+        padding: 0 30px;
+        border: none;
+        border-radius: 30px;
+        background-color: #fff;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 60px;
+        color: #000000;
+        outline: none;
+        -webkit-transition: width 0.2s ease-in;
+        transition: width 0.2s ease-in;
+      }
+      .search__input::-webkit-input-placeholder {
+        color: rgba(46, 46, 46, 0.5);
+      }
+      .search__input:-ms-input-placeholder {
+        color: rgba(46, 46, 46, 0.5);
+      }
+      .search__input::-ms-input-placeholder {
+        color: rgba(46, 46, 46, 0.5);
+      }
+      .search__input::placeholder {
+        color: rgba(46, 46, 46, 0.5);
+      }
+      .search__button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        background-color: #fff;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        -webkit-transition: background-color 0.2s ease-in;
+        transition: background-color 0.2s ease-in;
+      }
+      .search__button:hover {
+        background: #00c470;
+      }
+      .search__button:hover .search__button-icon {
+        stroke: #fff;
+      }
+      .search__button-icon {
+        stroke: #000;
+        -webkit-transition: stroke 0.2s ease-in;
+        transition: stroke 0.2s ease-in;
+      }
+      .search.search--visible .search__input {
+        width: 340px;
+        padding: 0 70px 0 30px;
+      }
+      @media (max-width: 599px) {
+        .search.search--visible .search__input {
+          width: 197px;
+          padding-left: 20px;
+          font-size: 14px;
+        }
+      }
+      .search.search--visible .search__button {
+        background-color: #00c470;
+      }
+      .search.search--visible .search__button .search__button-icon {
+        stroke: #fff;
+      }
+      .search.search--visible .search__button:hover {
+        background-color: #15d784;
+      }
+      .input {
+        display: block;
+        height: 60px;
+        padding: 0 30px;
+        background: rgba(0, 0, 0, 0.75);
+        border: none;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 14px;
+        color: #fff;
+      }
+      @media (max-width: 899px) {
+        .input {
+          padding: 0 45px;
+        }
+      }
+      @media (max-width: 599px) {
+        .input {
+          padding: 0 35px;
+        }
+      }
+      .input::-webkit-input-placeholder {
+        color: #fff;
+      }
+      .input:-ms-input-placeholder {
+        color: #fff;
+      }
+      .input::-ms-input-placeholder {
+        color: #fff;
+      }
+      .input::placeholder {
+        color: #fff;
+      }
+      .input:focus {
+        outline: none;
+        border: 2px solid #00c470;
+      }
+      .button {
+        display: inline-block;
+        height: 60px;
+        padding: 0 40px;
+        background: #00c470;
+        border: none;
+        border-radius: 30px;
+        font-weight: 800;
+        font-size: 14px;
+        line-height: 60px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #fff;
+        text-decoration: none;
+        -webkit-transition: 0.2s ease-in;
+        transition: 0.2s ease-in;
+        cursor: pointer;
+      }
+      .button:hover {
+        background: #049e5b;
+      }
+      .button:focus {
+        outline: none;
+        background: #02834b;
+      }
+      .button:active {
+        position: relative;
+        top: 1px;
+      }
+      .title {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #00c470;
+      }
+      @media (max-width: 899px) {
+        .title {
+          font-size: 14px;
+        }
+      }
+      .subtitle {
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 1;
+      }
+      @media (max-width: 1199px) {
+        .subtitle {
+          font-size: 38px;
+        }
+      }
+      @media (max-width: 899px) {
+        .subtitle {
+          font-size: 30px;
+        }
+      }
+      @media (max-width: 599px) {
+        .subtitle {
+          font-size: 26px;
+        }
+      }
+      .card {
+        text-align: center;
+      }
+      .card__img {
+        margin: 0 auto 40px;
+      }
+      @media (max-width: 1199px) {
+        .card__img {
+          margin: 0 auto 20px;
+        }
+      }
+      .card__title {
+        margin: 0 0 20px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1;
+      }
+      @media (max-width: 1199px) {
+        .card__title {
+          margin: 0 0 10px;
+          line-height: 1.5;
+          min-height: 48px;
+        }
+      }
+      @media (max-width: 899px) {
+        .card__title {
+          min-height: unset;
+        }
+      }
+      .card__description {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 2.14;
+        color: gray;
+      }
+      @media (max-width: 1199px) {
+        .card__description {
+          line-height: 1.57;
+        }
+      }
+    </style>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/main.css" />
+
+    <!-- OwlCarousel -->
+
+    <link
+      rel="stylesheet"
+      href="./libs/owl-carousel/assets/owl.carousel.min.css"
+    />
+
+    <!-- Open Graph -->
+    <meta
+      property="og:url"
+      content="http://s91916cq.beget.tech/unit/index.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Таск-менеджер Юнит" />
+    <meta
+      property="og:description"
+      content="Таск-менеджер для управления задачами и проектами"
+    />
+    <meta property="og:image" content="./img/opengraph.jpg" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./img/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./img/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./img/favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./img/favicons/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./img/favicons/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#2b5797" />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- Favicons -->
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__wrapper">
+        <nav class="header__buttons">
+          <button
+            class="header__buttons-nav-icon nav-icon"
+            aria-label="Навигация"
+          >
+            <span class="nav-icon__middle"></span>
+          </button>
+          <nav class="nav">
+            <h3 class="nav__top">навигация по сайту</h3>
+            <ul class="nav__list">
+              <li><a href="#functional">Функционал</a></li>
+              <li><a href="#control">Гибкое управление</a></li>
+              <li><a href="#focus">Всегда в фокусе</a></li>
+              <li><a href="#prices">Цены</a></li>
+              <li><a href="#clients">Отзывы клиентов</a></li>
+            </ul>
+          </nav>
+          <form class="header__button-search search">
+            <label for="search-input" class="visually-hidden">Поиск на сайте</label>
+            <input
+              type="text"
+              class="search__input"
+              placeholder="Введите текст для поиска"
+              id="search-input"
+            />
+            <button class="search__button" aria-label="Поиск">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g class="search__button-icon">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.70001 13.2C10.7376 13.2 13.2 10.7375 13.2 7.69995C13.2 4.66239 10.7376 2.19995 7.70001 2.19995C4.66245 2.19995 2.20001 4.66239 2.20001 7.69995C2.20001 10.7375 4.66245 13.2 7.70001 13.2Z"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16.8 18.4L11.2 12"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+              </svg>
+            </button>
+          </form>
+        </nav>
+        <div class="container header__content">
+          <div class="header__title">
+            <h1 class="title__h1">Юнит</h1>
+          </div>
+          <div class="header__description">
+            <p>
+              Управляй задачами и проектами из любой точки вместе с ЮНИТ. Дома.
+              На работе. В дороге. Онлайн. Оффлайн.
+            </p>
+          </div>
+
+          <form class="header__form">
+            <label for="input-name" class="visually-hidden">Введите имя</label>
+            <input class="input" type="text" placeholder="Ваше имя" id="input-name"/>
+            <label for="input-email" class="visually-hidden">Введите имя</label>
+            <input class="input" type="text" placeholder="Email" id="input-email"/>
+            <button class="button" type="submit">Начать триал</button>
+          </form>
+        </div>
+        <div class="header__scroll">
+          <a href="#functional">
+            <img
+              src="./img/icons/header/mouse.svg"
+              alt="Скролл вниз"
+              width="32"
+              height="48"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section-functional" id="functional">
+        <div class="container">
+          <header class="section-functional__header">
+            <h2 class="section-functional__title title">функционал</h2>
+            <h3 class="subtitle">Получайте больше</h3>
+          </header>
+          <div class="section-functional__row">
+            <div class="card">
+              <img
+                class="card__img"
+                src="./img/icons/functional/file-check.svg"
+                alt="Иконка файла"
+                width="64"
+                height="64"
+              />
+              <h4 class="card__title">Создан для управления</h4>
+              <p class="card__description">
+                Согласно ставшей уже классической работе Филипа Котлера,
+                рекламная площадка отталкивает рейтинг.
+              </p>
+            </div>
+            <div class="card">
+              <img
+                class="card__img"
+                src="./img/icons/functional/microphone.svg"
+                alt="Иконка микрофона"
+                width="64"
+                height="64"
+              />
+              <h4 class="card__title">Голосовое управление</h4>
+              <p class="card__description">
+                Согласно ставшей уже классической работе Филипа Котлера,
+                рекламная площадка отталкивает рейтинг.
+              </p>
+            </div>
+            <div class="card">
+              <img
+                class="card__img"
+                src="./img/icons/functional/money-stack.svg"
+                alt="Иконка монет"
+                width="64"
+                height="64"
+              />
+              <h4 class="card__title">Контроль бюджета</h4>
+              <p class="card__description">
+                Согласно ставшей уже классической работе Филипа Котлера,
+                рекламная площадка отталкивает рейтинг.
+              </p>
+            </div>
+            <div class="card">
+              <img
+                class="card__img"
+                src="./img/icons/functional/chart-pie-alt.svg"
+                alt="Иконка график"
+                width="64"
+                height="64"
+              />
+              <h4 class="card__title">Статистика и графики</h4>
+              <p class="card__description">
+                Согласно ставшей уже классической работе Филипа Котлера,
+                рекламная площадка отталкивает рейтинг.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section-cta">
+        <div class="section-cta__content">
+          <div class="container">
+            <h2 class="section-cta__title">
+              Начните использовать <span>ЮНИТ</span> уже сегодня.
+            </h2>
+            <a href="#prices" class="button">Подключить</a>
+          </div>
+        </div>
+      </section>
+      <section class="section-tasks" id="control">
+        <div class="container">
+          <div class="section-tasks__row">
+            <div class="section-tasks__content">
+              <header class="section-tasks__header">
+                <h2 class="section-tasks__title title">гибкое управление</h2>
+                <h3 class="subtitle">Задачи и подзадачи</h3>
+              </header>
+              <div class="section-tasks__text">
+                <p>
+                  Тактика выстраивания отношений с коммерчекими агентами,
+                  вопреки мнению П.Друкера, искажает продвигаемый отраслевой
+                  стандарт. Стратегический рыночный план традиционно
+                  масштабирует комплексный имидж. Спонсорство развивает формат
+                  события.
+                </p>
+              </div>
+            </div>
+            <div class="section-tasks__img">
+              <img
+                src="./img/mockups/iPhone.jpg"
+                alt="Айфон"
+                width="356"
+                height="602"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section-focus" id="focus">
+        <div class="container">
+          <div class="section-focus__row">
+            <div class="section-focus__img">
+              <img
+                src="./img/mockups/iPad.jpg"
+                alt="Планшет айпад"
+                width="570"
+                height="454"
+              />
+            </div>
+            <div class="section-focus__content">
+              <header class="section-focus__header">
+                <h2 class="section-focus__title title">всегда в фокусе</h2>
+                <h3 class="subtitle">Множественные приоритеты</h3>
+              </header>
+              <div class="section-focus__text">
+                <p>
+                  Потребление существенно продуцирует рыночный традиционный
+                  канал. В соответствии с законом Ципфа, маркетинг основан на
+                  тщательном анализе данных. Наряду с этим, целевой трафик
+                  конкурентоспособен.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section-price" id="prices">
+        <div class="section-price__content">
+          <div class="container">
+            <header class="section-price__header">
+              <h2 class="section-price__title title">цены</h2>
+              <h3 class="subtitle">Выберите подходящий план</h3>
+            </header>
+            <div class="section-price__row">
+              <div class="package">
+                <div class="package__header">
+                  <h4 class="package__title">базовый</h4>
+                  <span class="package__price">15</span>
+                  <span class="package__period">$/мес</span>
+                </div>
+                <ul class="package__list">
+                  <li class="package__list-item">10 проектов</li>
+                  <li class="package__list-item">5 участников</li>
+                  <li class="package__list-item">∞ количество задач</li>
+                  <li class="package__list-item">5 GB медиа хранилище</li>
+                  <li class="package__list-item">Поддержка по Email</li>
+                </ul>
+                <div class="package__button">
+                  <button class="button__outline">Выбрать</button>
+                </div>
+              </div>
+              <div class="package package--special">
+                <div class="package__header">
+                  <h4 class="package__title">стандарт</h4>
+                  <span class="package__price">65</span>
+                  <span class="package__period">$/мес</span>
+                </div>
+                <ul class="package__list">
+                  <li class="package__list-item">100 проектов</li>
+                  <li class="package__list-item">50 участников</li>
+                  <li class="package__list-item">∞ количество задач</li>
+                  <li class="package__list-item">10 GB медиа хранилище</li>
+                  <li class="package__list-item">Поддержка по Email</li>
+                </ul>
+                <div class="package__button">
+                  <button class="button__solid">Выбрать</button>
+                </div>
+              </div>
+              <div class="package">
+                <div class="package__header">
+                  <h4 class="package__title">премиум</h4>
+                  <span class="package__price">125</span>
+                  <span class="package__period">$/мес</span>
+                </div>
+                <ul class="package__list">
+                  <li class="package__list-item">∞ проектов</li>
+                  <li class="package__list-item">100+ участников</li>
+                  <li class="package__list-item">∞ количество задач</li>
+                  <li class="package__list-item">25 GB медиа хранилище</li>
+                  <li class="package__list-item">Поддержка по Email</li>
+                </ul>
+                <div class="package__button">
+                  <button class="button__outline">Выбрать</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section-clients" id="clients">
+        <div class="container">
+          <header class="section-clients__header">
+            <h2 class="section-clients__title title">наши клиенты</h2>
+            <h3 class="subtitle">Что говорят пользователи</h3>
+          </header>
+          <div class="section-clients__slider">
+            <button
+              class="slider__arrow slider__arrow--left"
+              id="slider-prev"
+              aria-label="Листать назад"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  class="slider__arrow-svg"
+                  d="M20 12H4"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  class="slider__arrow-svg"
+                  d="M10 18L4 12L10 6"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              class="slider__arrow slider__arrow--right"
+              id="slider-next"
+              aria-label="Листать вперёд"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  class="slider__arrow-svg"
+                  d="M4 12H20"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  class="slider__arrow-svg"
+                  d="M14 6L20 12L14 18"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <div class="slider owl-carousel owl-theme" id="clients-slider">
+              <div class="slider-item">
+                <div class="slider-item__text">
+                  <p>
+                    Это потрясающее приложение которое помогло мне завершить все
+                    мои дела, и сделать дипломный проект раньше срока.
+                  </p>
+                </div>
+                <div class="slider-item__author">
+                  <div class="slider-item__avatar">
+                    <img
+                      src="./img/users/feedback-user.jpg"
+                      alt="Пользователь"
+                      width="80"
+                      height="80"
+                    />
+                  </div>
+                  <div class="slider-item__author-desc">
+                    <span class="slider-item__author-title">Фрилансер </span>
+                    <span class="slider-item__author-name"
+                      >Николай Остапов</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="slider-item">
+                <div class="slider-item__text">
+                  <p>
+                    Это потрясающее приложение которое помогло мне завершить все
+                    мои дела, и сделать дипломный проект раньше срока.
+                  </p>
+                </div>
+                <div class="slider-item__author">
+                  <div class="slider-item__avatar">
+                    <img
+                      src="./img/users/feedback-user.jpg"
+                      alt="Пользователь"
+                      width="80"
+                      height="80"
+                    />
+                  </div>
+                  <div class="slider-item__author-desc">
+                    <span class="slider-item__author-title">Фрилансер </span>
+                    <span class="slider-item__author-name"
+                      >Николай Остапов</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="slider-item">
+                <div class="slider-item__text">
+                  <p>
+                    Это потрясающее приложение которое помогло мне завершить все
+                    мои дела, и сделать дипломный проект раньше срока.
+                  </p>
+                </div>
+                <div class="slider-item__author">
+                  <div class="slider-item__avatar">
+                    <img
+                      src="./img/users/feedback-user.jpg"
+                      alt="Пользователь"
+                      width="80"
+                      height="80"
+                    />
+                  </div>
+                  <div class="slider-item__author-desc">
+                    <span class="slider-item__author-title">Фрилансер </span>
+                    <span class="slider-item__author-name"
+                      >Николай Остапов</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__row">
+          <nav class="footer__nav">
+            <a href="#" class="footer__nav-item">о нас</a>
+            <a href="#" class="footer__nav-item">блог</a>
+            <a href="#" class="footer__nav-item">контакты</a>
+          </nav>
+          <div class="footer__socials">
+            <a class="footer__social-item" href="#">
+              <img
+                src="./img/icons/social-media/twitter.svg"
+                alt="Иконка твиттера"
+                width="24"
+                height="24"
+              />
+            </a>
+            <a class="footer__social-item" href="#">
+              <img
+                src="./img/icons/social-media/facebook.svg"
+                alt="Иконка фэйсбук"
+                width="24"
+                height="24"
+              />
+            </a>
+            <a class="footer__social-item" href="#">
+              <img
+                src="./img/icons/social-media/instagram.svg"
+                alt="Икаонка инстаграма"
+                width="24"
+                height="24"
+              />
+            </a>
+            <a class="footer__social-item" href="#">
+              <img
+                src="./img/icons/social-media/vk.svg"
+                alt="Иконка вк"
+                width="24"
+                height="24"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="footer__copyright">
+          <p>Копирайт &#169; 2019 ЮНИТ. Все права защищены.</p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        function getScript(url, success) {
+          let script = document.createElement("script");
+          script.src = url;
+          let head = document.getElementsByTagName("head")[0],
+            done = false;
+          script.onload = script.onreadystatechange = function () {
+            if (
+              !done &&
+              (!this.readyState ||
+                this.readyState == "loaded" ||
+                this.readyState == "complete")
+            ) {
+              done = true;
+              success();
+              script.onload = script.onreadystatechange = null;
+              head.removeChild(script);
+            }
+          };
+          head.appendChild(script);
+        }
+
+        let scrollFlag = true;
+        window.addEventListener("scroll", function () {
+          const clientsSection = document.querySelector("#clients");
+          function getCoords(elem) {
+            let box = elem.getBoundingClientRect();
+            return {
+              top: box.top + pageYOffset,
+              left: box.left + pageXOffset,
+            };
+          }
+          const coords = getCoords(clientsSection);
+          let scrolledTo = pageYOffset + document.documentElement.clientHeight;
+          if (scrolledTo >= coords.top && scrollFlag) {
+            scrollFlag = false;
+            getScript("./libs/jquery-3.6.0.min.js", function () {
+              getScript("./libs/owl-carousel/owl.carousel.min.js", function () {
+                getScript("./js/clinets-carousel.js", () => {});
+              });
+            });
+          }
+        });
+      })();
+    </script>
+
+    <script src="./js/nav-and-search.js"></script>
+  </body>
+</html>

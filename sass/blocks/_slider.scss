@@ -1,0 +1,185 @@
+.slider {
+  position: relative;
+  padding: 0 0 54px;
+
+  /*Mobile*/
+  @media (max-width: 899px) {
+    padding: 0 0 45px;
+  }
+}
+
+.section-clients__slider {
+  position: relative;
+}
+
+.slider__arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: none;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+
+  &:active {
+    top: 54px;
+  }
+
+  &--left {
+    position: absolute;
+    left: -2px;
+    top: 53px;
+    transform: translate(-100px);
+
+    @media (max-width: 949px) {
+      left: 20px;
+    }
+
+    /*Mobile*/
+    @media (max-width: 899px) {
+      left: 2px;
+      top: 66px;
+    }
+  }
+
+  &--right {
+    position: absolute;
+    right: -2px;
+    top: 53px;
+    transform: translate(100px);
+
+    @media (max-width: 949px) {
+      right: 20px;
+    }
+    /*Mobile*/
+    @media (max-width: 899px) {
+      right: 2px;
+      top: 66px;
+    }
+  }
+
+  .slider__arrow-svg {
+    stroke: #00c470;
+  }
+
+  &:hover {
+    background-color: #00c470;
+
+    .slider__arrow-svg {
+      stroke: #fff;
+    }
+  }
+
+  /*Mobile XS*/
+  @media (max-width: 599px) {
+    display: none;
+  }
+}
+
+.slider-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-item__text {
+  margin: 0 0 30px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 2;
+  text-align: center;
+  color: #000000;
+
+  p:not(:last-child) {
+    margin: 0 0 15px;
+  }
+
+  /*Tablet*/
+  @media (max-width: 1199px) {
+    line-height: 1.5;
+  }
+
+  /*Mobile*/
+  @media (max-width: 899px) {
+    margin: 0 0 20px;
+    font-size: 16px;
+  }
+
+  /*Mobile XS*/
+  @media (max-width: 599px) {
+    font-size: 14px;
+  }
+}
+
+.slider-item__author {
+  display: flex;
+  align-items: center;
+}
+
+.slider-item__avatar {
+  margin: 0 20px 0 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  /*Mobile XS*/
+  @media (max-width: 599px) {
+    margin: 0 10px 0 0;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.slider-item__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider-item__author-desc {
+  font-size: 16px;
+  font-weight: 500;
+
+  /*Mobile XS*/
+  @media (max-width: 599px) {
+    font-size: 14px;
+  }
+}
+
+.slider-item__author-title {
+  display: block;
+  margin: 0 0 5px;
+  color: #00c470;
+}
+
+.slider-item__author-name {
+  display: block;
+  color: #808080;
+}
+
+.slider__pagination {
+  display: flex;
+  column-gap: 10px;
+
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.slider__pagination-item {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: #e1e1e1;
+}
+
+.slider__pagination-item--active {
+  background: #00c470;
+}

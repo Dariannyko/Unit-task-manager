@@ -1,0 +1,95 @@
+// Ширина и высота линии в иконке
+
+$lineWidth: 20px;
+$lineHeight: 3px;
+$borderRadius: 2px;
+$lineDistance: 4px;
+
+// Ширна и высота блока
+$width: 60px;
+$height: 60px;
+
+$color: #000;
+
+.nav-icon {
+  width: $width;
+  height: $height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in;
+}
+
+.nav-icon__middle {
+  position: relative;
+  width: $lineWidth;
+  height: $lineHeight;
+  background-color: $color;
+  border-radius: $borderRadius;
+  transition: background-color 0.2s ease-in;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: $lineWidth;
+    height: $lineHeight;
+    background-color: $color;
+    border-radius: $borderRadius;
+    transition: transform ease-in 0.2s, top 0.2s linear 0.2s;
+    transition: background-color 0.2s ease-in;
+  }
+
+  &::before {
+    top: -($lineHeight + $lineDistance);
+  }
+
+  &::after {
+    top: $lineHeight + $lineDistance;
+  }
+}
+
+/* Active state */
+
+.nav-icon.nav-icon--active .nav-icon__middle {
+  background-color: transparent;
+
+  &::before,
+  &::after {
+    top: 0;
+    transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+
+.nav-icon.nav-icon--active {
+  position: fixed;
+  z-index: 999;
+}
+
+.nav-icon:hover {
+  background-color: $accentText;
+}
+
+.nav-icon:hover .nav-icon__middle {
+  background-color: #fff;
+  &::before,
+  &::after {
+    background-color: #fff;
+  }
+}
+
+.nav-icon:hover.nav-icon--active .nav-icon__middle {
+  background-color: transparent;
+}
