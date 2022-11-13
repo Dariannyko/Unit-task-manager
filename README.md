@@ -7,7 +7,7 @@
 
 ### Ссылка на проект
 
-🌱 [Юнит](https://dariannyko.github.io/Forest-Travel-Agency/) 
+🌱 [Юнит](https://dariannyko.github.io/Unit-task-manager/) 
 
 ![image](https://user-images.githubusercontent.com/109591423/201522283-b57f93a3-896d-4dc1-8376-86c90086eeb1.png)
 
